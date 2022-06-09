@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="{{ url_for('operation_result') }}" id="calculator_form">
+        <label for="Input1">Input 1</label>
+        <input type="text" name="Input1" id="Input1">
+
+        <label for="Input1">Input 2</label>
+        <input type="text" name="Input2" id="Input2">
+
+        <label for="Input1">Operation</label>
+        <select id="operation" name="operation">
+            <option value="+">Addition</option>
+            <option value="-">Subtraction</option>
+            <option value="/">Division</option>
+            <option value="*">Multiplication</option>
+            <option value="%">Modulus</option>
+        </select>
+
+        <input type="submit" value="Submit"/>
+    </form>    
+    {% if calculation_success == True %}
+        <br/>
+        <p>The calculation for {{input1}} {{operation}} {{input2}} is: {{result}}</p>
+    {% if calculation_success == False %}
+        <br/>
+        <p>An error occured</p>
+</body>
+<script src="javascript">
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <title>FlaskBlog</title>
+</head>
+<body>
+   <h1>Welcome to FlaskBlog</h1>
+</body>
+</html> -->
+
+<!-- https://medium.com/@alanbanks229/part-2-of-2-introduction-to-python-flask-29b58adbabaf -->
