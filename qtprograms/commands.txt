@@ -1,0 +1,7 @@
+1 rpm -qa qt-devel
+2 rpm -qa qt-demos
+3 rpm -qa qt-examples
+4 qmake-qt4 -project
+5 qmake-qt4
+6 make
+7 ./qthello
