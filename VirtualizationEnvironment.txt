@@ -1,0 +1,91 @@
+
+Aim:
+Virtualization Environment
+To learn the Virtualization setup with QEMU system and installing FreeDos in virtual machine.
+
+
+Theory:
+VIRTUALIZATION:
+Virtualization is creation of Virtual Machines which can emulate hardware in software or in other words
+it is the creation of virtual version of something such as a hardware platform, operating system, storage
+device, or network resources (from Wikipedia). Virtualization is achieved or created with the help of
+software and this particular software allows you to install any number of OS on your system without
+using the available hardware directly.
+When you are running an OS over the top of another on your machine the whole environment acts like a
+HOST and GUEST OS. The real operating system acts as a HOST and the OS run by virtualization
+software acts as a GUEST OS.
+The entire load balancing is actually done by the HOST operating system.
+Types of Virtualization
+There are mainly three types of virtualization.
+■Full virtualization
+■OS level virtualization
+■Para virtualization
+
+
+Full virtualization
+As the name suggests everything in a system is virtualized which includes the processor, storage,
+networking components etc. Virtual Box, VMware are example of “Full Virtualization” solutions.
+
+
+OS Level virtualization
+In this type of virtualization only applications are run inside the software. In this case the application is
+given a platform to work. Isolation is created and the application is made to believe that it is the only
+thing running on the system.
+
+
+Para virtualization
+It‟s a semi-virtualized environment created for the guest OS. A modified guest OS is created using a
+hypervisor. “The intent of the modified interface is to reduce the portion of the guest‟s executiontime
+spent performing operations which are substantially more difficult to run in a virtual environment
+compared to a non-virtualized environment. The Para virtualization provides specially defined „hooks‟to
+allow the guest(s) and host to request and acknowledge these tasks, which would otherwise be executed in
+the virtual domain (where execution performance is worse). A successful Para virtualized platform may
+allow the virtual machine monitor (VMM) to be simpler (by relocating execution of critical tasks fromthe
+virtual domain to the host domain), and/or reduce the overall performance degradation of machineexecution inside the virtual-guest.”
+
+
+Advantages of Virtualization
+■One of the biggest advantages of virtualization is scalability i.e. the ability to expand. Whenever thereis
+excessive load on some part of application in a server you can easily create a similar virtual environment
+on a different server and configure the setup.
+■Hardware maintenance cost is reduced because you don‟t need many servers to install different
+applications.
+■You can save a huge amount of energy by running one physical server instead of many and less power
+backup is required.
+■You can get faster and safer backups by taking live snapshot while server is running.
+■You will get centralized monitoring of your resources as virtualization provides easy way of connecting
+and maintaining your virtual servers.
+
+QEMU:
+QEMU is a generic and open source machine emulator and virtualizer.
+When used as a machine emulator, QEMU can run OSes and programs made for one machine (e.g. an
+ARM board) on a different machine (e.g. your own PC). By using dynamic translation, it achieves very
+good performance.
+When used as a virtualizer, QEMU achieves near native performances by executing the guest code
+directly on the host CPU. QEMU supports virtualization when executing under the Xen hypervisor or
+using the KVM kernel module in Linux. When using KVM, QEMU can virtualize x86, server and
+embedded PowerPC, and S390 guests.
+Latest version QEMU : 1.2.0
+
+
+
+
+
+
+RESULT: FreeDos as the new OS has been installed on the VM.
+
+
+
+
+
+
+
+
+commands:
+1.sudo apt-get install qemu
+2.sudo apt-get install qemu-kvm
+3.apt show qemu-system-x86
+4.kvm -version
+5.qemu-img create puppy.vdi 10G
+6.qemu-img create -f qcow2 puppy.qcow 10G
+7.qemu-system-x86_64 -boot d -cdrom Desktop/fdbasecd.iso -m 512

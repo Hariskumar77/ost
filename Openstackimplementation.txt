@@ -1,0 +1,52 @@
+Aim :
+To setup Network Interface using ifconfig command and the related system files
+
+
+Setting up Network Interfaces
+To see how your network is configured on your computer, use the ifconfig command. Note that this
+command is in the /sbin directory and this directory is not in normal users&#39;s path and only in root&#39;s path.
+So, as normal user, you will have to use &quot;/sbin/ifconfig&quot; command on the command prompt. As root just
+using &quot;ifconfig&quot; will do. Here is an example output if this command is used as a normal user:
+[ostlab@ostlab ~]$ ifconfig
+
+Static IP addresses are manually assigned to a computer by an administrator. The exact procedure varies
+according to platform. This contrasts with dynamic IP addresses, which are assigned either by the
+computer interface or host software itself, as in Zeroconf, or assigned by a server using Dynamic Host
+
+
+Configuration Protocol (DHCP).
+Assigning IP Address, Netmask and gateway using ifconfig command
+IP address : 192.168.1.100 (An unused IP)
+netmask : 255.255.255.0
+IP address of the default gateway : 192.168.1.1
+[ostlab@ostlab ~]$ su
+Password:
+[root@ostlab ostlab]# mii-tool
+eth0: negotiated 100baseTx-FD flow-control, link ok
+To Assign IP address and netmask
+[root@ostlab ostlab]# ifconfig eth0 192.168.1.100 netmask 255.255.255.0
+[root@ostlab ostlab]#
+To Assign gateway
+[root@ostlab ostlab]# route add default gw 192.168.1.1
+[root@ostlab ostlab]# route -n
+
+These settings are not permanent. It&#39;s go away the next time you boot. For permanent setting use the
+following steps.
+[root@ostlab ostlab]# vi /etc/sysconfig/network-scripts/ifcfg-eth0
+Change the values as shown below and save
+
+[root@ostlab ostlab]# service network restart
+
+[root@ostlab
+ostlab]#ifconfig
+[root@ostlab
+ostlab]# route–n
+Managing iptables
+[root@ostlab
+ostlab]#service iptables start 
+[root@ostlab ostlab]#service iptables stop
+
+[root@ostlab ostlab]#service iptables restart
+
+
+RESULT: The network has been configured with new ip, gateway and netmask.

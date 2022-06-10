@@ -1,0 +1,126 @@
+Aim: To share files between Linux and Windows
+
+Samba is a free software re-implementation of the SMB/CIFS networking protocol, originally
+developed by Andrew Tridgell. As of version 3, Samba provides file and print services for
+various Microsoft Windows clients and can integrate with a Windows Server domain, either as
+a Primary Domain Controller (PDC) or as a domain member. It can also be part of an Active
+Directory domain.
+
+Samba can be used with Linux to provide transparent access between systems running Linux and systems
+running Windows. Samba itself runs on a Linux system and makes shared files and printers available to
+Windows system, as if they are available on a Window system or server. Thus, Samba has several
+practical applications which can generally be categorized as follows:
+
+1. Using a Linux server as a simple peer-to-peer server. There is no user authentication involved and no
+need for passwords.
+2. Using a Linux server as a member server on an existing Windows NT domain. The existing
+Windows domain controller will use NT authentication tools to control file permissions and access.
+3. Using a Linux server as a primary domain controller with its own user authentication and
+control mechanisms. Which of these three applications of Samba is used, determines how Samba is
+configured on the Linux system.
+
+
+1. Samba Installation
+[ostlab@ostlab ~]$ su
+Password:
+[root@ostlab ostlab]# yum install samba
+
+
+2. Check samba status
+[root@ostlab ostlab]# service smb status
+smbd is stopped
+Start samba service
+[root@ostlab ostlab]# service smb start
+Starting SMB services: [ OK ]
+Restart samba service
+[root@ostlab ostlab]# service smb restart
+Shutting down SMB services: [ OK ]
+Starting SMB services: [ OK ]
+[root@ostlab ostlab]#
+
+
+3. Disable firewall
+[root@ostlab ostlab]# service iptables status
+
+[root@ostlab ostlab]# service iptables stop
+iptables: Flushing firewall rules: [ OK ]
+iptables: Setting chains to policy ACCEPT: filter [ OK ]
+iptables: Unloading modules: [ OK ]
+[root@ostlab ostlab]# service ip6tabls stop
+
+
+4. Enforce Permissive State
+[root@ostlab ostlab]# getenforce
+Enforcing
+[root@ostlab ostlab]# setenforce
+usage: setenforce [ Enforcing | Permissive | 1 | 0 ]
+[root@ostlab ostlab]# setenforce 0
+[root@ostlab ostlab]# getenforce
+Permissive
+
+
+Creating a normal user
+# useradd samba-test
+Setting the password
+# passwd samba-test
+Changing password for user samba-test.
+New password:
+Retype new password:
+passwd: all authentication tokens updated successfully.
+Adding the user to access samba shares with a password
+# smbpasswd -a samba-test
+New SMB password:
+Retype new SMB password:
+Added user samba-test.
+Login into the samba as using the smbclient to add the files and folders to share with windows
+# smbclient \\\\localhost\\samba-test -Usamba-test
+Here enter smb password for login
+Enter samba-test&#39;s password:
+You gets the following output to see the what are files you are sharing
+Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.5.8-68.fc15]
+smb: \&gt;
+In this to see what are files you sharing enter ‘ls’ command
+
+smb: \&gt; ls
+. D 0 Tue Aug 9 19:08:44 2011
+.. D 0 Tue Aug 9 19:08:44 2011
+.bash_logout H 18 Wed Jun 22 19:19:05 2011
+.mozilla DH 0 Wed Feb 9 03:52:39 2011
+.bash_profile H 193 Wed Jun 22 19:19:05 2011
+.gnome2 DH 0 Tue Feb 8 14:08:01 2011
+.bashrc H 124 Wed Jun 22 19:19:05 2011
+56633 blocks of size 2097152. 7531 blocks available
+To see the where your current directory located enter
+the ‘pwd‘ command smb: \&gt; pwd
+Current directory is \\localhost\samba-test\
+To create a folder in sharing folder enter following command
+smb: \&gt; mkdir test
+To check created directory enter the following command
+smb: \&gt; ls
+. D 0 Tue Aug 9 19:10:50 2011
+.. D 0 Tue Aug 9 19:08:44 2011
+.bash_logout H 18 Wed Jun 22 19:19:05 2011
+.mozilla DH 0 Wed Feb 9 03:52:39 2011
+.bash_profile H 193 Wed Jun 22 19:19:05 2011
+.gnome2 DH 0 Tue Feb 8 14:08:01 2011
+test D 0 Tue Aug 9 19:10:50 2011
+.bashrc H 124 Wed Jun 22 19:19:05 2011
+56633 blocks of size 2097152. 7532 blocks available
+If you want to come out from samba client enter the „exit‟
+smb: \&gt; exit
+How to access the shared files from windows.
+Open the samba location as following.
+Start-&gt; Run..
+Enter the ip address of linux machine as following
+eg: \\192.168.1.2
+It displays log in window to log into the samba sever.
+Here username and password should be what you given to while creating samba
+username and smb password.
+eg: username: samba-test
+password:test123
+Now you can see the what are files shared.
+
+
+
+RESULT: Thus a SAMBA file server has been installed in Linux
+machine and the files have been accessed in a Windows machine.
